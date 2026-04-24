@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#1a1209">
+  <title>易经六爻占卜 | I Ching Divination</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- AdSense（上线后替换为你的 ca-pub-XXXXXX） -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXX" crossorigin="anonymous"></script> -->
+</head>
+<body>
+
+<!-- 导航 -->
+<nav class="nav">
+  <span class="nav-title" id="navTitle">易经六爻</span>
+  <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
+</nav>
+
+<!-- 主体 -->
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-symbol" id="heroSymbol">☯</div>
+    <h1 id="heroTitle">六爻占卜</h1>
+    <p id="heroSub">心诚则灵，静心默想所问之事</p>
+  </div>
+
+  <!-- 选择方向 -->
+  <div class="divider" id="dirDivider">选择所问方向</div>
+  <p class="section-label" id="dirLabel">摇卦前，请先选择你想问的方向</p>
+
+  <div class="direction-grid" id="dirGrid"></div>
+
+  <!-- 摇卦按钮 -->
+  <button class="shake-btn" id="shakeBtn" onclick="onShake()" disabled>
+    <span id="shakeBtnText">请先选择方向</span>
+  </button>
+
+  <!-- 卦象区（摇卦后显示） -->
+  <div id="guaSection" style="display:none; margin-top:24px;">
+
+    <div class="divider" id="guaDivider">卦象</div>
+
+    <div class="gua-card" id="guaCard">
+      <div class="gua-name" id="guaName"></div>
+      <div class="gua-name-en" id="guaNameEn"></div>
+      <div class="yao-list" id="yaoList"></div>
+      <div class="guaci" id="guaci"></div>
+    </div>
+
+    <!-- 解卦区 -->
+    <div class="result-section" id="resultSection">
+      <div class="divider" id="resultDivider">解卦</div>
+      <div class="result-card">
+
+        <!-- 方向标题 -->
+        <div class="result-header">
+          <span class="icon" id="resultIcon"></span>
+          <h3 id="resultTitle"></h3>
+        </div>
+
+        <!-- 免费预览 -->
+        <div id="previewArea">
+          <div class="result-preview" id="previewText"></div>
+          <div class="unlock-area">
+            <p class="unlock-hint" id="unlockHint">观看广告，解锁完整解卦详情</p>
+            <button class="unlock-btn" id="unlockBtn" onclick="onUnlock()">
+              <span id="unlockBtnText">▶ 观看广告解锁完整解卦</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 完整内容（广告后显示） -->
+        <div class="result-full" id="fullArea">
+          <div id="fullContent"></div>
+
+          <!-- 其他维度信号 -->
+          <div id="signalArea" style="display:none;">
+            <div class="divider" id="signalDivider" style="margin:16px 0 10px;">其他维度信号</div>
+            <div id="signalList"></div>
+          </div>
+        </div>
+
+        <!-- Loading -->
+        <div class="loading" id="loadingArea" style="display:none;">
+          <div class="loading-spinner"></div>
+          <span id="loadingText">正在解卦，请稍候…</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 重新摇卦 -->
+    <button class="shake-btn" style="margin-top:16px; background: var(--bg3); color:var(--gold); border:1px solid var(--gold);" onclick="onReshake()">
+      <span id="reshakeBtnText">重新摇卦</span>
+    </button>
+  </div>
+
+</div><!-- /container -->
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- 免责声明 -->
+<div class="disclaimer" id="disclaimer">
+  本应用仅供传统文化娱乐参考，不构成任何决策建议。<br>
+  For entertainment and cultural reference only.
+</div>
+
+<!-- 脚本 -->
+<script src="gua.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
