@@ -429,11 +429,28 @@ function callAI(direction, callback) {
   .catch(err => callback(null, err.message));
 }
 
-// ======================== 广告（H5 AdSense 激励广告占位） ========================
-// H5原生没有激励广告API，这里用展示广告+倒计时模拟
-// 正式上线可接入 Google IMA SDK 或 AdSense
+// ======================== 广告 ========================
+// Flutter 环境：调用 AdMob 激励广告；H5 环境：倒计时模拟
+let _adCallback = null;
+
+// Flutter 广告看完后回调此函数（由 Flutter main.dart 注入调用）
+window.onAdRewarded = function () {
+  if (_adCallback) {
+    const cb = _adCallback;
+    _adCallback = null;
+    cb();
+  }
+};
+
 function showAd(onComplete) {
-  // 创建广告遮罩
+  // Flutter WebView 环境：调用原生 AdMob 激励广告
+  if (window.FLUTTER_ENV && window.FlutterAdBridge) {
+    _adCallback = onComplete;
+    window.FlutterAdBridge.postMessage('showAd');
+    return;
+  }
+
+  // 浏览器环境：倒计时模拟广告
   const overlay = document.createElement('div');
   overlay.style.cssText = `
     position:fixed; inset:0; background:rgba(0,0,0,.9); z-index:9999;
@@ -446,8 +463,7 @@ function showAd(onComplete) {
     <div style="font-size:14px; color:#aaa; margin-bottom:16px;">广告 · Advertisement</div>
     <div style="width:300px; height:250px; background:#222; border:1px solid #444;
                 display:flex; align-items:center; justify-content:center; color:#666; font-size:13px;">
-      广告位<br>Ad Placeholder<br><br>
-      接入 Google AdSense / IMA SDK 后显示真实广告
+      广告位<br>Ad Placeholder
     </div>
     <div id="adCountdown" style="margin-top:20px; font-size:16px; color:#c9a84c;">
       ${countdown}秒后可关闭
